@@ -33,3 +33,5 @@ def filter_numbers(numbers_list, filter_type):
     """
     if filter_type==ODD:
         return [ num for num in numbers_list if num % 2 != 0]
+    if filter_type==EVEN:
+        return [ num for num in numbers_list if num % 2 == 0]
