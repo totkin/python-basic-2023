@@ -72,7 +72,7 @@ def filter_numbers(numbers_list: list, return_type: str) -> list:
 
 if __name__ == "__main__":
     print("Homework_01")
-    koef=100000
+    koef=55000
     print(filter_numbers(list(range(1*koef, 1*koef+101)), ODD))
     print(filter_numbers(list(range(1*koef, 1*koef+101)), EVEN))
     print(filter_numbers(list(range(1*koef, 1*koef+101)), PRIME))
