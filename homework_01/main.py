@@ -52,7 +52,6 @@ def is_prime(number: int) -> bool:
             ret_val = False
     return ret_val
 
-
 def filter_numbers(numbers_list: list, return_type: str) -> list:
     """
     функция, которая на вход принимает список из целых чисел,
