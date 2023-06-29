@@ -17,7 +17,7 @@ from homework_02.exceptions import LowFuelError, NotEnoughFuel
 class Vehicle(ABC):
     weight: int = 2500
     started: bool = False
-    fuel: float = 1
+    fuel: float = 45
     fuel_consumption: float = 9.5
 
     def __init__(self, w: int, f: float, fc: float):
@@ -37,3 +37,4 @@ class Vehicle(ABC):
             raise NotEnoughFuel
 
         self.fuel -= distance / self.fuel_consumption
+        return True
