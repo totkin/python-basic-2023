@@ -33,8 +33,8 @@ class Vehicle(ABC):
         return True
 
     def move(self, distance: float):
-        if self.fuel / self.fuel_consumption < distance:
+        if self.fuel < self.fuel_consumption * distance:
             raise NotEnoughFuel
 
-        self.fuel -= distance / self.fuel_consumption
+        self.fuel -= distance * self.fuel_consumption
         return True
