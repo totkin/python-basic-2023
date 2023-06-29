@@ -15,10 +15,10 @@ from homework_02.exceptions import CargoOverload
 
 
 class Plane(Vehicle):
-    cargo: int
+    cargo: int = 0
     max_cargo: int
 
-    def __init__(self, mc: int, w: int, f: float, fc: float):
+    def __init__(self,  mc: int, w: int, f: float, fc: float):
         super().__init__(w, f, fc)
         self.max_cargo = mc
 
