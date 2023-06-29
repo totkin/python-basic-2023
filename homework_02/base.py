@@ -20,6 +20,7 @@ class Vehicle(ABC):
     fuel: float = 45
     fuel_consumption: float = 9.5
 
+
     def __init__(self, w: int, f: float, fc: float):
         self.weight = w
         self.fuel = f
