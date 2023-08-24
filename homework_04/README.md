@@ -3,8 +3,7 @@
 #### Задача:
 - скопируйте папку `homework_04` для этой домашки (Памятка: https://github.com/OtusTeam/BasePython/tree/homeworks-new)
 - используйте следующие пакеты: 
-    - aiohttp
-    - SQLAlchemy>=1.4
+    - aiohttp>=1.4
 - доработайте модуль `jsonplaceholder_requests`:
     - установите значения в константы `USERS_DATA_URL` и `POSTS_DATA_URL` (ресурсы нужно взять отсюда https://jsonplaceholder.typicode.com/)
     - создайте асинхронные функции для выполнения запросов к данным ресурсам (используйте `aiohttp`)

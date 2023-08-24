@@ -13,13 +13,50 @@
 - закрытие соединения с БД
 """
 
+import asyncio
+import sys
+
+from loguru import logger
+from sqlalchemy import MetaData
+
+from jsonplaceholder_requests import async_fetch_users, async_fetch_posts
+from models import Base, User, Post, Session, engine
+
+metadata = MetaData()
+
+
+async def create_schemas():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+        await conn.run_sync(Base.metadata.create_all)
+
+
+async def async_create_users_and_posts():
+    users_data, posts_data = await asyncio.gather(async_fetch_users(), async_fetch_posts())
+    async with Session() as session:
+        async with session.begin():
+            for user in users_data:
+                session.add(User(id=user['id'], name=user['name'], username=user['username'], email=user['email']))
+            for post in posts_data:
+                var = Post(id=post['id'], user_id=post['userId'], title=post['title'], body=post['body'])
+                session.add(var)
+                #print(var.title)
+
 
 async def async_main():
-    pass
+    logger.info('delete and re-creation DB')
+    await create_schemas()
+    logger.info('DB created')
+
+    logger.info('Create users and posts')
+    await async_create_users_and_posts()
+    logger.info('Users and posts created')
 
 
 def main():
-    pass
+    if sys.platform == "win32":
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    asyncio.run(async_main())
 
 
 if __name__ == "__main__":

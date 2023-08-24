@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  pg:
+    image: postgres
+    environment:
+      - postgres.env # configure postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata
+
+volumes:
+  db-data:
