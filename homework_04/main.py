@@ -16,29 +16,15 @@
 import asyncio
 import sys
 
-from loguru import logger
 from sqlalchemy import MetaData
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import sessionmaker
 
-from homework_04 import config
 from jsonplaceholder_requests import async_fetch_users, async_fetch_posts
 from models import Base, User, Post, async_engine
 
 
-
 metadata = MetaData()
 
-async_engine = create_async_engine(
-    url=config.ASYNC_DB_URL,
-    echo=config.DB_ECHO,
-)
-
-# async_session = sessionmaker(
-#     bind=async_engine,
-#     expire_on_commit=False,
-#     class_=AsyncSession,
-# )
 
 async def create_schemas():
     async with async_engine.begin() as schema_connection:
@@ -57,10 +43,11 @@ async def async_create_users_and_posts():
         await session.commit()
         await session.close()
 
+
 async def async_main():
     await create_schemas()
     await async_create_users_and_posts()
-
+    await async_engine.dispose()
 
 def main():
     if sys.platform == "win32":

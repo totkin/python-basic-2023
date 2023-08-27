@@ -34,6 +34,6 @@ async def make_all_fetch():
     await fetch_json(USERS_DATA_URL)
 
 
-if __name__ == '__main__':
-    asyncio.get_event_loop().run_until_complete(make_all_fetch())
+# if __name__ == '__main__':
+#     asyncio.get_event_loop().run_until_complete(make_all_fetch())
 

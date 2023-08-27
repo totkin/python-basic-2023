@@ -4,12 +4,22 @@ from sqlalchemy.orm import declarative_base, relationship, sessionmaker, declare
 
 import config
 
+
 async_engine = create_async_engine(
     url=config.ASYNC_DB_URL,
     echo=config.DB_ECHO,
 )
 
+
+Session = sessionmaker(
+    async_engine,
+    expire_on_commit=False,
+    class_=AsyncSession,
+)
+
+
 engine = create_engine(url=config.DB_URL, echo=config.DB_ECHO)
+
 
 class Base:
     @declared_attr
@@ -20,9 +30,3 @@ class Base:
 
 
 Base = declarative_base(cls=Base)
-
-Session = sessionmaker(
-    async_engine,
-    expire_on_commit=False,
-    class_=AsyncSession,
-)
