@@ -8,6 +8,8 @@
 создайте связи relationship между моделями: User.posts и Post.user
 """
 
+import os
+
 from sqlalchemy import (
     Column,
     Integer,
@@ -20,11 +22,17 @@ from sqlalchemy.orm import declarative_base, relationship, sessionmaker, declare
 import config
 
 # PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or "postgresql+psycopg2://username:passwd@localhost:5432/blog"
-# engine = create_async_engine(PG_CONN_URI, echo=True)
+# engine = create_async_engine(PG_CONN_URI, echo=False)
 
 async_engine = create_async_engine(
     url=config.ASYNC_DB_URL,
     echo=config.DB_ECHO,
+)
+
+Session = sessionmaker(
+    async_engine,
+    expire_on_commit=False,
+    class_=AsyncSession,
 )
 
 class Base:
@@ -39,13 +47,7 @@ class Base:
         return f"{self.__class__.__name__}, id={self.id}"
 
 
-Base = declarative_base(bind=async_engine, cls=Base)
-
-Session = sessionmaker(
-    async_engine,
-    expire_on_commit=False,
-    class_=AsyncSession,
-)
+Base = declarative_base( bind = async_engine, cls=Base)
 
 
 class User(Base):
@@ -71,12 +73,6 @@ class Post(Base):
     body = Column(Text)
 
     user = relationship("User", back_populates="posts")
-
-    # алхимия умеет работать и без __init__ - берет за структуру данные колонок
-    # def __init__(self, user_id, title, body):
-    #     self.user_id = user_id
-    #     self.title = title
-    #     self.body = body
 
     def __repr__(self):
         return f"userId={self.user_id!r}, title={self.title!r}, body={self.body!r}"
