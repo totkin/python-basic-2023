@@ -42,7 +42,7 @@ class Base:
 Base = declarative_base(bind=async_engine, cls=Base)
 
 Session = sessionmaker(
-    engine,
+    async_engine,
     expire_on_commit=False,
     class_=AsyncSession,
 )

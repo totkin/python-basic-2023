@@ -2,11 +2,7 @@
 для модели User обязательными являются name, username, email
 """
 
-
-from sqlalchemy import (
-    Column,
-    String,
-)
+from sqlalchemy import (Column,String,)
 from sqlalchemy.orm import relationship
 
 from .base import Base
@@ -22,12 +18,7 @@ class BaseUser(CreatedAtMixin, Base):
 
 class User(BaseUser):
     name = Column(String(32), nullable=False, unique=True)
-
-    posts = relationship(
-        "Post",
-        back_populates="user",
-        uselist=True,
-    )
+    posts = relationship("Post",back_populates="user",uselist=True,)
 
     def __str__(self):
         return f"User(id={self.id}, username={self.username!r}, name={self.name!r}, email={self.email!r})"
