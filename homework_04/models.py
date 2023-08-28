@@ -31,11 +31,15 @@ from sqlalchemy.orm import declarative_base, relationship, sessionmaker, declare
 
 import config
 
-PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or config.ASYNC_DB_URL
-engine = create_async_engine(PG_CONN_URI, echo=False)
+PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or "postgresql+asyncpg://postgres:password@localhost/postgres"
+
+engine = create_async_engine(
+    url=PG_CONN_URI,
+    echo=config.DB_ECHO,
+)
 
 async_engine = create_async_engine(
-    url=config.ASYNC_DB_URL,
+    url=PG_CONN_URI,
     echo=config.DB_ECHO,
 )
 

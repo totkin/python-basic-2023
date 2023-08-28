@@ -57,10 +57,10 @@ async def test_main(users_data, posts_data):
 
     stmt_query_users = select(module_models.User).options(selectinload(module_models.User.posts))
     stmt_query_posts = select(module_models.Post).options(joinedload(module_models.Post.user))
-    print(1)
+
     users = []
     posts = []
-    print(2)
+
     async with module_models.Session() as session:
         # there're problems with asyncio.gather in pytest :/
         # res_users, res_posts = await asyncio.gather(
@@ -72,7 +72,7 @@ async def test_main(users_data, posts_data):
 
         users.extend(res_users.scalars())
         posts.extend(res_posts.scalars())
-    print(3)
+
     assert len(posts) == len(posts_data)
 
     check_data_match(users, users_data, args_mapping=dict(
