@@ -49,6 +49,7 @@ async def async_main():
     await async_create_users_and_posts()
     await async_engine.dispose()
 
+
 def main():
     if sys.platform == "win32":
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
