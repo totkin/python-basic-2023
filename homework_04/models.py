@@ -6,6 +6,16 @@
 для модели User обязательными являются name, username, email
 для модели Post обязательными являются user_id, title, body
 создайте связи relationship между моделями: User.posts и Post.user
+
+Из README.md
+доработайте модуль models:
+создайте асинхронный алхимичный engine (при помощи create_async_engine)
+добавьте declarative base
+создайте объект Session на основе класса AsyncSession
+добавьте модели User и Post, объявите поля:
+для модели User обязательными являются name, username, email
+для модели Post обязательными являются user_id, title, body
+создайте связи relationship между моделями: User.posts и Post.user
 """
 
 import os
@@ -21,8 +31,8 @@ from sqlalchemy.orm import declarative_base, relationship, sessionmaker, declare
 
 import config
 
-# PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or "postgresql+psycopg2://username:passwd@localhost:5432/blog"
-# engine = create_async_engine(PG_CONN_URI, echo=False)
+PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or "postgresql+psycopg2://username:passwd@localhost:5432/blog"
+engine = create_async_engine(PG_CONN_URI, echo=False)
 
 async_engine = create_async_engine(
     url=config.ASYNC_DB_URL,
