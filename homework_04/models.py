@@ -31,7 +31,7 @@ from sqlalchemy.orm import declarative_base, relationship, sessionmaker, declare
 
 import config
 
-PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or "postgresql+asyncpg://postgres:password@localhost/postgres"
+PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or config.ASYNC_DB_URL
 engine = create_async_engine(PG_CONN_URI, echo=False)
 
 async_engine = create_async_engine(
@@ -44,6 +44,7 @@ Session = sessionmaker(
     expire_on_commit=False,
     class_=AsyncSession,
 )
+
 
 class Base:
 
