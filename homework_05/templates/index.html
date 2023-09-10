@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block title %}
+  Index
+{% endblock %}
+
+
+{% block body %}
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {% for product_name, img_path, product_price, product_details in [
+                      ('Product 1', 'https://sklad-mart.ru/upload/iblock/3d9/3d97d973655412180974bca4a1e46f7a.jpg','100 руб','about'),
+                      ('Product 2', 'https://i.mycdn.me/i?r=BDGvRlXWcXJosdiHOqVV3e-H8bOA0XKZQ4QfOLKF8iinmcKawFw9ncRWeaDTxA4A2iA','1000 руб','about'),
+                      ('Product 3', 'https://sun9-32.userapi.com/impf/c638919/v638919564/473d1/hidd3oIlMSE.jpg?size=425x292&quality=96&sign=22fc32c80f2b9c83ab84a732fe0b6420&c_uniq_tag=Lo9xMKshwQkWOIyVZzSjM4hDn1hqR2F3yH1YtagoiUE&type=album','200 руб','about'),
+                      ('Product 4', 'https://www.werfstore.ru/wp-content/uploads/2022/12/nz5_1542-1-600x400-optimized.png','500 руб','about'),
+                      ('Product 5', 'https://legkovmeste.ru/wp-content/uploads/2019/09/post_5d8b1f189b880.jpeg','120 руб','about'),
+                      ('Product 6', 'https://old-lekar.com/wp-content/uploads/2017/09/куриное-яйцо.jpg','450 руб','about'),
+                      ('Product 7', 'https://c.wallhere.com/photos/b1/69/switzerland_lac_lausanne_yves_bateau_paysage_l_man_vaud-919835.jpg!d','60 руб','about'),
+                      ('Product 8', 'https://i.ytimg.com/vi/S3zRedAq6l4/maxresdefault_live.jpg','800 руб','about'),
+                    ] %}
+
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="{{img_path}}" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{product_name}}</h5>
+                                    <!-- Product price-->
+                                    {{product_price}}
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a class="btn btn-outline-dark mt-auto" href="{{product_details}}">
+                                        View options</a>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+
+            {% endfor %}
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; OTUS Test Website 2023</p></div>
+        </footer>
+{% endblock %}
