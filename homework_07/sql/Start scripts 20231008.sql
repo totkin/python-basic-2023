@@ -20,13 +20,13 @@ select * from AODATA.REPORT.test20231008
 CREATE SCHEMA [nomad] AUTHORIZATION [nomaduser]
 
 
-alter USER [nomaduser] WITH DEFAULT_SCHEMA =[nomad]
+alter USER [sa] WITH DEFAULT_SCHEMA =[nomad]
 
 
 GRANT CONNECT TO [nomaduser]
 
+GRANT ALTER TABLE TO nomaduser
 
-GRANT INSERT ON SCHEMA :: nomad TO nomaduser
 
 
 select CURRENT_USER 
@@ -46,7 +46,23 @@ INNER JOIN sys.database_permissions AS pe ON pe.grantee_principal_id = pr.princi
 
 
 
+DROP LOGIN nomaduser
+DROP user nomaduser
+DROP SCHEMA nomad
 
-Create login nomaduser with password='pa$$w0rd';
-Create user nomaduser for login nomaduser;
-Grant Execute to nomaduser
+
+CREATE SCHEMA nomad
+Create login [nomaduser] with password='pa$$w0rd';
+Create user nomaduser for login nomaduser WITH DEFAULT_SCHEMA =[nomad]
+ALTER ROLE db_owner ADD MEMBER [nomaduser]
+GRANT alter ON SCHEMA :: nomad TO nomaduser WITH GRANT OPTION
+
+
+
+GRANT DELETE ON SCHEMA::[nomad] TO [nomaduser]
+GRANT EXECUTE ON SCHEMA::[nomad] TO [nomaduser]
+GRANT INSERT ON SCHEMA::[nomad] TO [nomaduser]
+GRANT REFERENCES ON SCHEMA::[nomad] TO [nomaduser]
+GRANT SELECT ON SCHEMA::[nomad] TO [nomaduser]
+GRANT UPDATE ON SCHEMA::[nomad] TO [nomaduser]
+GRANT VIEW DEFINITION ON SCHEMA::[nomad] TO [nomaduser]
