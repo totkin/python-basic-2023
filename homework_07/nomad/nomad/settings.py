@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'catalog.apps.CatalogConfig',
 ]
 
 MIDDLEWARE = [
@@ -74,10 +75,33 @@ WSGI_APPLICATION = "nomad.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    'default': {
+        # String. It must be "mssql".
+        'ENGINE': 'mssql',
+
+        # String. Database name. Required.
+        'NAME': 'AODATA',
+
+        # String. Database user name in "user" format. If not given then MS Integrated Security will be used.
+        'USER': 'sa', #'nomaduser',#
+
+        # String. Database user password.
+        'PASSWORD': '#ErrorNumber=0',#'pa$$w0rd', #
+
+         # String. SQL Server instance in "server\instance" format.
+        'HOST': 'localhost',
+
+        # String. Server instance port. An empty string means the default port.
+        'PORT': '1433',
+
+        # Dictionary. Additional database settings.
+        'OPTIONS': {
+            # String. ODBC Driver to use ("ODBC Driver 17 for SQL Server",
+            # "SQL Server Native Client 11.0", "FreeTDS" etc).
+            # Default is "ODBC Driver 19 for SQL Server".
+            'driver': "SQL Server Native Client 11.0",
+        },
+    },
 }
 
 
@@ -103,9 +127,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ru-RU"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Moscow"
 
 USE_I18N = True
 
