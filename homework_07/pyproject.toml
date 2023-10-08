@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "homework-07"
+version = "0.1.0"
+description = ""
+authors = ["totkin <test4git@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "^4.2.6"
+django-debug-toolbar = "^4.2.0"
+celery = "^5.3.4"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.9.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
