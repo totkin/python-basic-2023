@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Список менеджеров</h1>
+
+    {% if manager_list %}
+    <ul>
+
+      {% for manager in manager_list %}
+      <li>
+        <a href="{{ manager.get_absolute_url }}">{{ manager.full_name }}</a> ({{manager.department}})
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>В списке нет менеджеров.</p>
+    {% endif %}
+{% endblock %}
