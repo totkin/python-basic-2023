@@ -34,9 +34,10 @@ class ManagerListView(generic.ListView):
     model = Manager
 
     context_object_name = 'manager_list'  # имя переменной контекста в шаблоне
-    queryset = Manager.objects.filter(status='+')[:5]  # Получение 5 актальных менеджера
+    #queryset = Manager.objects.filter(status='+')[:5]  # Получение 5 актуальных менеджеров
     template_name = 'managers/template_manger_list.html'  # Определение имени шаблона и его расположения
 
+    paginate_by = 10
 
 class ManagerDetailView(generic.DetailView):
     model = Manager

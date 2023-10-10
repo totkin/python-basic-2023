@@ -8,7 +8,7 @@
 
       {% for manager in manager_list %}
       <li>
-        <a href="{{ manager.get_absolute_url }}">{{ manager.full_name }}</a> ({{manager.department}})
+        <a href="{{ manager.get_absolute_url }}">{{ manager.full_name }}</a> {{manager.department}}, {{manager.title}}
       </li>
       {% endfor %}
 
