@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    hostname: s-sql5
+    container_name: s-sql5
+    ports:
+      - 1433:1433
+    volumes:
+      - ~/apps/mssql/data:/var/lib/mssqlql/data
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=#ErrorNumber=0
+      - MSSQL_PID=DEVELOPER
