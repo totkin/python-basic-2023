@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Списки рассылок</h1>
+
+  <p>Вы находитесь в <em>EmailList</em> - приложении для работы со списками рассылок.</p>
+
+<h2>Динамический контекст</h2>
+
+  <p>Рассылками охвачено</p>
+  <ul>
+      Всего
+    <li><strong>менеджеров</strong> {{ num_Managers }} из <strong>{{ num_Departments }}</strong> отделов.</li>
+    <li><strong>подписок:</strong> {{ num_Subscriptions }}</li>
+  </ul>
+
+{% endblock %}
