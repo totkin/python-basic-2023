@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-xq!(97+--v7c#2eh&^2d!aceq3jw76%42^_psgw^!)fcu)#79!"
+SECRET_KEY = "django-insecure-r=b+ezo#%)tgu2tc5g%)g=2j^f_o!gkpa+)inoo0c=8513fj$y"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "emaillist.apps.EmaillistConfig"
+    'catalog.apps.CatalogConfig',
 ]
 
 MIDDLEWARE = [
@@ -74,14 +74,6 @@ WSGI_APPLICATION = "nomad.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
-
 DATABASES = {
     'default': {
         # String. It must be "mssql".
@@ -91,10 +83,10 @@ DATABASES = {
         'NAME': 'AODATA',
 
         # String. Database user name in "user" format. If not given then MS Integrated Security will be used.
-        'USER': 'sa',                #'nomaduser', #'sa',
+        'USER': 'sa', #'nomaduser',#
 
         # String. Database user password.
-        'PASSWORD': '#ErrorNumber=0',#'pa$$w0rd',  #'#ErrorNumber=0',
+        'PASSWORD': '#ErrorNumber=0',#'pa$$w0rd', #
 
          # String. SQL Server instance in "server\instance" format.
         'HOST': 'localhost',
@@ -111,6 +103,7 @@ DATABASES = {
         },
     },
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -136,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "ru-RU"
 
-TIME_ZONE = 'Europe/Moscow'
+TIME_ZONE = "Europe/Moscow"
 
 USE_I18N = True
 
