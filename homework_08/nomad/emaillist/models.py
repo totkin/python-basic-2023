@@ -23,6 +23,12 @@ class Title(models.Model):
     def __str__(self):
         return f"{self.name} ({self.short_name})"
 
+    def get_queryset(self):
+        return Title.objects.all()
+
+    def get_absolute_url(self):
+        return reverse("title-detail", args=[str(self.id)])
+
 
 class Department(models.Model):
     """Отдел"""
@@ -39,8 +45,15 @@ class Department(models.Model):
                                        verbose_name="Доп информация",
                                        blank=True)
 
+    def get_absolute_url(self):
+        return reverse("department-detail", args=[str(self.id)])
+
     def __str__(self):
         return f"{self.short_name}"
+
+
+    def get_queryset(self):
+        return Department.objects.all()
 
 
 class Subscription(models.Model):
@@ -114,6 +127,8 @@ class Manager(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return " ".join((self.first_name, self.middle_name, self.last_name, f"({self.status})"))
+
+
 
 # import uuid  # Required for unique book instances
 # from datetime import date

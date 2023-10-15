@@ -1,17 +1,31 @@
 {% extends "base_generic.html" %}
 
+{% block departments %}
+    {% for department in departments %}
+    <li>
+        <a class="dropdown-item" href="{{ department.get_absolute_url }}">{{ department.name }}</a>
+    </li>
+    {% endfor %}
+<li>
+        <a class="dropdown-item" href="#">TEST</a>
+    </li>
+{% endblock %}
+
 {% block content %}
-<h1>Списки рассылок</h1>
 
-  <p>Вы находитесь в <em>EmailList</em> - приложении для работы со списками рассылок.</p>
+    <img src="/../../media/logo_light.gif" style="margin-right:1px;"> <span class="h1 align-bottom">Списки рассылок</span>
 
-<h2>Динамический контекст</h2>
 
-  <p>Рассылками охвачено</p>
-  <ul>
-      Всего
-    <li><strong>менеджеров</strong> {{ num_Managers }} из <strong>{{ num_Departments }}</strong> отделов.</li>
-    <li><strong>подписок:</strong> {{ num_Subscriptions }}</li>
-  </ul>
+
+    <p>Вы находитесь в <em>EmailList</em> - приложении для работы со списками рассылок.</p>
+
+    <h2>Динамический контекст</h2>
+
+    <p>Рассылками охвачено</p>
+    <ul>
+        Всего
+        <li><strong>менеджеров</strong> {{ num_Managers }} из <strong>{{ num_Departments }}</strong> отделов.</li>
+        <li><strong>рассылок:</strong> {{ num_Subscriptions }}</li>
+    </ul>
 
 {% endblock %}

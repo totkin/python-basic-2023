@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 
 from .models import (Subscription, Manager, Department, Title)
@@ -39,5 +40,48 @@ class ManagerListView(generic.ListView):
 
     paginate_by = 10
 
+    # context_object_name = 'all_search_results'
+    def get_queryset(self):
+       result = super(ManagerListView, self).get_queryset()
+       query = self.request.GET.get('search')
+       print(query)
+       if query:
+          postresult = Manager.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query)  )
+          # помни почему в sqlite не работает нормально бпоиск без учета регистра!!!
+          # https://docs.djangoproject.com/en/2.1/ref/databases/#sqlite-string-matching
+          result = postresult
+       else:
+           result = Manager.objects.filter(status='+')
+       return result
+
 class ManagerDetailView(generic.DetailView):
     model = Manager
+
+
+class DepartmentDetailView(generic.DetailView):
+    model = Department
+
+class DepartmentListView(generic.ListView):
+    model = Department
+
+
+class TitleDetailView(generic.DetailView):
+    model = Title
+
+class TitleListView(generic.ListView):
+    model = Title
+
+
+class SearchView(generic.ListView):
+    model = Manager
+    template_name = 'manager_list.html'
+    context_object_name = 'all_search_results'
+    def get_queryset(self):
+       result = super(SearchView, self).get_queryset()
+       query = self.request.GET.get('search')
+       if query:
+          postresult = Manager.objects.filter(first_name__icontains=query)
+          result = postresult
+       else:
+           result = None
+       return result
