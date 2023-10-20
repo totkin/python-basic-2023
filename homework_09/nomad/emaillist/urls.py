@@ -11,5 +11,6 @@ urlpatterns = [
     re_path(r'^department/(?P<pk>\d+)$', views.DepartmentDetailView.as_view(), name='department-detail'),
     re_path(r'^titles/$', views.TitleListView.as_view(), name='titles'),
     re_path(r'^title/(?P<pk>\d+)$', views.TitleDetailView.as_view(), name='title-detail'),
+
 ]
 

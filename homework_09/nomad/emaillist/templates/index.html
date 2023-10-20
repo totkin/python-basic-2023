@@ -6,9 +6,7 @@
         <a class="dropdown-item" href="{{ department.get_absolute_url }}">{{ department.name }}</a>
     </li>
     {% endfor %}
-<li>
-        <a class="dropdown-item" href="#">TEST</a>
-    </li>
+
 {% endblock %}
 
 {% block content %}
@@ -19,7 +17,7 @@
 
     <p>Вы находитесь в <em>EmailList</em> - приложении для работы со списками рассылок.</p>
 
-    <h2>Динамический контекст</h2>
+
 
     <p>Рассылками охвачено</p>
     <ul>
@@ -27,5 +25,11 @@
         <li><strong>менеджеров</strong> {{ num_Managers }} из <strong>{{ num_Departments }}</strong> отделов.</li>
         <li><strong>рассылок:</strong> {{ num_Subscriptions }}</li>
     </ul>
-
 {% endblock %}
+
+{% block footer %}
+      You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{%
+      else %} times{% endif %}.
+{% endblock %}
+
+
