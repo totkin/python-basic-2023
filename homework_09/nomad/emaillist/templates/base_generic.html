@@ -23,38 +23,21 @@
           <img src="/../../media/logo_light.gif" alt="Главная" style="width:40px;" >
         </a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown">Менеджеры</a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="{% url 'managers' %}">Все ({{ num_Managers }})</a></li>
-
-          {% block departments %}
-
-          {% endblock %}
-
-        </ul>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'managers' %}" role="button">Менеджеры</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="{% url 'titles' %}" role="button" data-bs-toggle="dropdown">Должности</a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="{% url 'titles' %}">Все должности ({{ num_Titles }})</a></li>
-            {% for title in tiltle_list.objects.all %}
-            <li>
-              <a class="dropdown-item"  href="#">{{ title.short_name }}</a>
-            </li>
-            {% endfor %}
-        </ul>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'titles' %}" role="button">Должности</a>
       </li>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'departments' %}" role="button">Отделы</a>
+      </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="{% url 'departments' %}" role="button" data-bs-toggle="dropdown">Отделы</a>
+        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown">Рассылки</a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="{% url 'departments' %}">Все отделы ({{ num_Departments }})</a></li>
-            {% for department in department_list.objects.all %}
-            <li>
-              <a class="dropdown-item"  href="#">{{ department.name }}</a>
-            </li>
-            {% endfor %}
+          <li><a class="dropdown-item" href="{% url 'subscriptions' %}">Все рассылки ({{ num_Subscriptions }})</a></li>
+          <li><a class="dropdown-item" href="{% url 'subscription_create' %}">Добавить</a></li>
         </ul>
       </li>
      </ul>

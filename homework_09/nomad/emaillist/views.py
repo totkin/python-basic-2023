@@ -1,6 +1,19 @@
 from django.db.models import Q
 from django.shortcuts import render
 
+from django.views import generic
+
+from django.contrib.auth.decorators import permission_required
+
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
+import datetime
+
+from django.views.generic import CreateView, UpdateView, DeleteView
+
+from .forms import RenewManagerForm
+
 from .models import (Subscription, Manager, Department, Title)
 
 
@@ -15,9 +28,9 @@ def index(request):
 
     # Генерация "количеств" некоторых главных объектов
     num_Managers = Manager.objects.filter(status='+').count()
-    num_Subscriptions = Subscription.objects.count()  # Метод 'all()' применён по умолчанию.
-    num_Departments = Department.objects.count()  # Метод 'all()' применён по умолчанию.
-    num_Titles = Title.objects.count()  # Метод 'all()' применён по умолчанию.
+    num_Subscriptions = Subscription.objects.count()
+    num_Departments = Department.objects.count()
+    num_Titles = Title.objects.count()
 
     # Отрисовка HTML-шаблона index.html с данными внутри
     # переменной контекста context
@@ -28,12 +41,9 @@ def index(request):
                  'num_Subscriptions': num_Subscriptions,
                  'num_Departments': num_Departments,
                  'num_Titles': num_Titles,
-                 'num_visits':num_visits
+                 'num_visits': num_visits
                  },
     )
-
-
-from django.views import generic
 
 
 class ManagerListView(generic.ListView):
@@ -94,3 +104,64 @@ class SearchView(generic.ListView):
         else:
             result = None
         return result
+
+
+def renew_Manager(request, pk):
+    """
+    View function for renewing a specific BookInstance by librarian
+    """
+    manager_inst = get_object_or_404(Manager, pk=pk)
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = RenewManagerForm(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+            manager_inst.first_name = form.cleaned_data['first_name']
+            manager_inst.middle_name = form.cleaned_data['middle_name']
+            manager_inst.last_name = form.cleaned_data['last_name']
+            manager_inst.save()
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('managers'))
+
+    # If this is a GET (or any other method) create the default form.
+    else:
+        proposed_renewal_date = datetime.date.today()
+        form = RenewManagerForm(initial={"first_name": manager_inst.first_name,
+                                         "middle_name": manager_inst.middle_name,
+                                         "last_name": manager_inst.last_name,
+                                         })
+
+    return render(request, 'emaillist/renew_Manager.html',
+                  {'form': form, 'managerinst': manager_inst})
+
+
+class SubscriptionDetailView(generic.DetailView):
+    model = Subscription
+
+
+class SubscriptionListView(generic.ListView):
+    model = Subscription
+
+
+class SubscriptionCreate(CreateView):
+    model = Subscription
+    fields = '__all__'
+    initial = {'status': '-', }
+    success_url = reverse_lazy('subscriptions')
+
+
+class SubscriptionUpdate(UpdateView):
+    model = Subscription
+    fields = ['name', 'status', 'frequency']
+    success_url = reverse_lazy('subscriptions')
+
+
+class SubscriptionDelete(DeleteView):
+    model = Subscription
+    success_url = reverse_lazy('subscriptions')

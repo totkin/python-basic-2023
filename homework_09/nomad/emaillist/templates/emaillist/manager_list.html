@@ -15,7 +15,10 @@
 
       {% for manager in manager_list %}
       <li>
-        <a href="{{ manager.get_absolute_url }}">{{ manager.full_name }}</a>, {{manager.department}}, {{manager.title}}
+        <a href="{{ manager.get_absolute_url }}">{{ manager.full_name }}</a>, {{manager.department}}, {{manager.title}}, <a href="{% url 'renew-Manager' manager.id %}"> Изменить ФИО</a>
+          <!--{% if perms.emaillist.can_mark_returned %}-  -->
+
+          <!--{% endif %} -->
       </li>
       {% endfor %}
 
@@ -23,6 +26,8 @@
     {% else %}
 
     {% endif %}
+
+
 
 {% endblock %}
 

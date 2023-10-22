@@ -3,7 +3,7 @@
 {% block content %}
   <h2>{{ manager.full_name }}</h2>
 
-  <p><strong>Отдел:</strong> <a href="">{{ manager.department }}</a></p>
+  <p><strong>Отдел:</strong> <a href="{{ manager.department.get_absolute_url }}">{{ manager.department }}</a></p>
   <p><strong>Должность:</strong> {{ manager.title }}</p>
   <p><strong>email:</strong> {{ manager.email }}</p>
   <p><strong>Имя в системе:</strong> {{ manager.system_name }}</p>
@@ -15,8 +15,8 @@
     {% for subscription in manager.subscription.all %}
     <tr>
         <td>
-            <span class="text-muted"><strong>Id:</strong> {{subscription.id}}</span>
-        </td>
+            <span class="text-muted"><strong> {{subscription.name}} </strong></span>
+        </td><td> </td>
         <td>
             <span class="{% if subscription.status == '+' %}text-success
                             {% elif copy.status == '-' %}text-danger
@@ -24,12 +24,12 @@
                             {% endif %}">
             {{ subscription.get_status_display }}
             </span>
-        </td>
+        </td><td> </td>
         <td>
             {% if subscription.status != '+' %}
             <p><strong>Неактивна</strong>{{subscription.due_back}}</p>
             {% endif %}
-        </td>
+        </td><td> </td>
         <td>
             <strong>Частота:</strong> {{subscription.frequency}}
         </td>
