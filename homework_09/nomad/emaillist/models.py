@@ -2,8 +2,6 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-# Create your models here.
-
 REGULAR_NVARCHAR_LENGTH = 255
 SHORT_NVARCHAR_LENGTH = 50
 
@@ -81,7 +79,7 @@ class Subscription(models.Model):
     frequency = models.CharField(max_length=2, choices=SUBSCRIPTION_FREQUENCY, default="D", null=False,
                                  verbose_name="Частота")
 
-    # created_by = models.ForeignKey(WorkingUser, on_delete=models.SET_NULL, null=True, blank=True)
+    created_by = models.ForeignKey(User , on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"{self.name} - {self.frequency}"

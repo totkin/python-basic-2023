@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import render
 
@@ -14,7 +15,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 
 from .forms import RenewManagerForm
 
-from .models import (Subscription, Manager, Department, Title)
+from .models import (Subscription, Manager, Department, Title, WorkingUser)
 
 
 def index(request):
@@ -145,15 +146,26 @@ class SubscriptionDetailView(generic.DetailView):
     model = Subscription
 
 
-class SubscriptionListView(generic.ListView):
+class SubscriptionListView(LoginRequiredMixin, generic.ListView):
     model = Subscription
 
+    def get_queryset(self):
+        return Subscription.objects.filter(created_by=self.request.user).order_by('id')
 
-class SubscriptionCreate(CreateView):
+
+class SubscriptionCreate(LoginRequiredMixin, CreateView):
     model = Subscription
-    fields = '__all__'
-    initial = {'status': '-', }
+    fields = ['name', 'status', 'frequency']
     success_url = reverse_lazy('subscriptions')
+
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super(SubscriptionCreate, self).form_valid(form)
+
+    # def __init__(self, *args, **kwargs):
+    #     super(SubscriptionCreate, self).__init__(*args, **kwargs)
+    #     self.fields['created_by'] = self.request.user
 
 
 class SubscriptionUpdate(UpdateView):
