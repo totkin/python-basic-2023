@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h2>{{ subscription.name }}</h2>
+
+  <p><strong>Название:</strong> {{ subscription.name }}</p>
+  <p><strong>Статус:</strong> {{ subscription.status }}</p>
+  <p><strong>Частота:</strong> {{ subscription.frequency }}</p>
+  <a href="{% url 'author_delete' %}">Удалить</a>
+<hr>
+<a href="{% url 'subscriptions' %}">К списку рассылок</a>
+{% endblock %}
