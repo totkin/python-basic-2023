@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+<link rel="stylesheet">
+{% endblock %}
+{% block title %}
+Index
+{% endblock %}
+
+{% block body %}
+<h1>Welcome to test application
+    <br>
+    <img src="https://flask.palletsprojects.com/en/latest/_images/flask-horizontal.png"
+         alt="Flask" height="40">
+    +
+    <img src="https://www.postgresql.org/media/img/about/press/elephant.png"
+         alt="PostgreSQL" height="40"> PostgreSQL
+</h1>
+<br>
+<div>
+      <ul class="list-group">
+        <a class="list-group-item list-group-item-action"
+           href="{{ url_for("products_app.list") }}">Products list</a>
+        <a class="list-group-item list-group-item-action"
+           href="{{ url_for("products_app.add") }}">Add new product</a>
+      </ul>
+</div>
+
+
+{% endblock %}

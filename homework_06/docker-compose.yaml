@@ -1,0 +1,70 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./
+    container_name: flask_app
+    command: gunicorn --bind 0.0.0.0:5000 app:app
+    environment:
+      CONFIG_CLASS: ProductionConfig
+      SQLALCHEMY_DATABASE_URI: postgresql://username:passwd@pg:5432/blog
+    ports:
+      - "5050:5000"
+    depends_on:
+      pg:
+        condition: service_healthy
+
+#  app-dev:
+#    build:
+#      dockerfile: ./Dockerfile-local
+#      context: ./
+#    environment:
+#      CONFIG_CLASS: DevelopmentConfig
+#      SQLALCHEMY_DATABASE_URI: postgresql://username:passwd@pg:5432/blog
+#
+#    volumes:
+#      - ./:/app
+#    ports:
+#      - "5050:5000"
+
+  pg:
+    image: postgres
+    env_file:
+      - ./pg.env
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4:4.23
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_LISTEN_ADRESS: 0.0.0.0
+      PGADMIN_LISTEN_PORT: 5555
+    ports:
+      - "5555:5555"
+    depends_on:
+      - pg
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata
+      - ./:/app
+    ports:
+      - "1337:80"
+    depends_on:
+      - app
+      - pgadmin
+
+volumes:
+  db-data:
