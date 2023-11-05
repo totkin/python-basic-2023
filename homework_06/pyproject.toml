@@ -1,20 +1,25 @@
 [tool.poetry]
-name = "homework-06"
+name = "shop-project"
 version = "0.1.0"
-description = ""
-authors = ["totkin <test4git@gmail.com>"]
+description = "Flask Shop App"
+authors = ["Suren Khorenyan <surenkhorenyan@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
-Flask = "^3.0.0"
-flask-sqlalchemy = "^3.1.1"
-python-dotenv = "^1.0.0"
-psycopg2 = "^2.9.9"
+python = "^3.8.1"
+flask = "^2.3.2"
+flask-sqlalchemy = "^3.0.3"
+sqlalchemy = "<2"
+flask-migrate = "^4.0.4"
+flask-wtf = "^1.1.1"
+psycopg2-binary = "^2.9.7"
+flake8 = "^6.1.0"
+gunicorn = "^21.2.0"
+
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.10.1"
+black = "^23.3.0"
 
 [build-system]
 requires = ["poetry-core"]

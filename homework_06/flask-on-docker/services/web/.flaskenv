@@ -1,3 +1,0 @@
-FLASK_APP=project/__init__.py
-FLASK_RUN_PORT=5001
-FLASK_ENV=development
