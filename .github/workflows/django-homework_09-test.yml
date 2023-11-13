@@ -20,8 +20,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install poetry
+        echo first installation complete
         cd ./homework_09
         poetry install
+        echo poetry install DONE
+        cd ./homework_09/nomad
         python ./homework_09/nomad/manage.py runserver
     - name: Run Tests
       run: |
