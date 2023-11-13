@@ -30,7 +30,7 @@ jobs:
         cd ./homework_09/nomad
         poetry config virtualenvs.in-project true
         poetry install --no-interaction --no-ansi
-        python manage.py runserver
+        # python manage.py runserver
 
     - name: Run Tests
       run: |
