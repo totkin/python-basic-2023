@@ -20,4 +20,4 @@ jobs:
         pip install flake8
     - name: Analysing the code with pylint
       run: |
-        flake8 homework_09/
+        flake8 ./homework_09/
