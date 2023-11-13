@@ -29,8 +29,8 @@ jobs:
         pip install poetry
         cd ./homework_09/nomad
         poetry config virtualenvs.in-project true
-        poetry install --no-interaction --no-ansi
-        python ./homework_09/nomad/manage.py runserver
+        poetry install --no-interaction --no-ansi --no-root
+        python manage.py runserver
 
     - name: Run Tests
       run: |
