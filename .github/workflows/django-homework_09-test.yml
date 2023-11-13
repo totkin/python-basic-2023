@@ -1,4 +1,4 @@
-name: Django CI 
+honame: Django CI 
 
 on: [push]
 jobs:
@@ -9,7 +9,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: ["3.11", "3.12"]
+        python-version: ["3.11"]
 
     steps:
     - uses: actions/checkout@v3
@@ -23,8 +23,8 @@ jobs:
         python -m pip install --upgrade pip
         cd ./homework_09
         pip install '-r' requirements.txt
-        cd ./nomad
-        python manage.py runserver
+        echo ------------------------------OK
+        python /nomad/manage.py runserver
 
     - name: Run Tests
       run: |
