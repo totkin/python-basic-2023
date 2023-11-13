@@ -21,4 +21,3 @@ urlpatterns += [
     re_path(r'^subscription/(?P<pk>\d+)/update/$', views.SubscriptionUpdate.as_view(), name='subscription_update'),
     re_path(r'^subscription/(?P<pk>\d+)/delete/$', views.SubscriptionDelete.as_view(), name='subscription_delete'),
 ]
-
