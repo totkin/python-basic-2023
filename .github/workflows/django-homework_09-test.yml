@@ -24,7 +24,7 @@ jobs:
         cd ./homework_09
         pip install '-r' requirements.txt
         echo ------------------------------OK
-        python /nomad/manage.py runserver
+        python ./nomad/manage.py runserver
 
     - name: Run Tests
       run: |
