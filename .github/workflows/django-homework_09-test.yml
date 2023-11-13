@@ -22,6 +22,7 @@ jobs:
         pip install poetry
         cd ./homework_09
         poetry install
+        python ./homework_09/nomad/manage.py runserver
     - name: Run Tests
       run: |
         python ./homework_09/nomad/manage.py test
