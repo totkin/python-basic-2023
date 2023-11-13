@@ -22,10 +22,12 @@ jobs:
         pip install poetry
         echo first installation complete
         cd ./homework_09
+        echo $PATH
+        echo TEST---------------------
         poetry install
         echo poetry install DONE
-        cd ./homework_09/nomad
+        cd /nomad
         python ./homework_09/nomad/manage.py runserver
     - name: Run Tests
       run: |
-        python ./homework_09/nomad/manage.py test
+        python manage.py test
