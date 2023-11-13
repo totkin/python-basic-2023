@@ -1,4 +1,4 @@
-name: Pylint
+name: flake8 easy hpmework_09 check
 
 on: [push]
 
