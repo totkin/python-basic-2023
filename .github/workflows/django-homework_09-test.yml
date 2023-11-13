@@ -1,4 +1,4 @@
-honame: Django CI 
+name: Django CI 
 
 on: [push]
 jobs:
