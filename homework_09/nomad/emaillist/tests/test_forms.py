@@ -2,7 +2,8 @@ from django.test import TestCase
 
 # Создайте ваши тесты здесь
 
-import random, string
+import random
+import string
 
 from ..forms import RenewManagerForm
 

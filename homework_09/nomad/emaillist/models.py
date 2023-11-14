@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 REGULAR_NVARCHAR_LENGTH = 255
 SHORT_NVARCHAR_LENGTH = 50
 
+
 class WorkingUser(User):
     pass
 
@@ -53,7 +54,6 @@ class Department(models.Model):
     def __str__(self):
         return f"{self.short_name}"
 
-
     def get_queryset(self):
         return Department.objects.all()
 
@@ -79,7 +79,7 @@ class Subscription(models.Model):
     frequency = models.CharField(max_length=2, choices=SUBSCRIPTION_FREQUENCY, default="D", null=False,
                                  verbose_name="Частота")
 
-    created_by = models.ForeignKey(User , on_delete=models.SET_NULL, null=True, blank=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"{self.name} - {self.frequency}"
@@ -137,8 +137,6 @@ class Manager(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return " ".join((self.first_name, self.middle_name, self.last_name, f"({self.status})"))
-
-
 
 # import uuid  # Required for unique book instances
 # from datetime import date
