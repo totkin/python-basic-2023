@@ -21,3 +21,5 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         flake8 --extend-ignore=E501,E303,E712,F841,F401 ./homework_09/
+        cd homework_09/nomad/
+        python manage.py test
