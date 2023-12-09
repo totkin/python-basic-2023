@@ -26,5 +26,5 @@ jobs:
         poetry install
     - name: Run Tests
       run: |
-        cd nomad/
+        cd .homework_09/nomad/
         python manage.py test
