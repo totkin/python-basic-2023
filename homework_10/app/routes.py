@@ -1,12 +1,12 @@
 from datetime import datetime, timezone
 
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, jsonify, json
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from app import app, db
 
 from app.forms import LoginForm, RegistrationForm, EditProfileForm
-from app.models import User
+from app.models import User, TodoList
 
 
 @app.before_request
@@ -97,3 +97,48 @@ def edit_profile():
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title='Edit Profile',
                            form=form)
+
+
+def todo_serializer(todo):
+    # convert data from TodoList to JSON
+    return {"id": todo.id, "todo": todo.todo}
+
+
+@app.route("/todo/", methods=["GET"])
+def home():
+    return jsonify([*map(todo_serializer, TodoList.query.all())])  # get all items in TodoList
+
+
+@app.route("/todo/todo-create", methods=["POST"])
+def todo_create():
+    # add todo to database
+    request_data = json.loads(request.data)
+    todo = TodoList(todo=request_data["todo"])
+
+    db.session.add(todo)
+    db.session.commit()
+
+    return {"201": "todo created successfully"}
+
+
+@app.route("/todo/update/<int:id>", methods=["PUT"])
+def update_todo(id):
+    # edit todo item based on ID
+    item = TodoList.query.get(id)
+    request.get_json(force=True)
+    todo = request.json["todo"]
+    item.todo = todo
+    db.session.commit()
+
+    return {"200": "Updated successfully"}
+
+
+@app.route("/todo/<int:id>", methods=["POST"])
+def delete_todo(id):
+    # delete todo item from todo list
+    request.get_json(force=True)
+    request_data = json.loads(request.data)
+
+    TodoList.query.filter_by(id=request_data["id"]).delete()
+    db.session.commit()
+    return {"204": "Delete successfully"}
