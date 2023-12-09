@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "homework-07"
+name = "homework_09"
 version = "0.1.0"
 description = ""
 authors = ["totkin <test4git@gmail.com>"]
